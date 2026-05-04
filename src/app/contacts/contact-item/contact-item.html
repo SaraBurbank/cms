@@ -1,0 +1,11 @@
+<a class="list-group-item clearfix" (click)="onSelected()">
+    <div class="float-start">
+        <h4 class="list-group-item-heading">{{ contact().name }}</h4>
+    </div>
+    <span class="float-end">
+        <img class="img-responsive" 
+            src="{{ contact().imageUrl }}" 
+            alt="{{ contact().name }}" 
+            style="max-width: 50px;">
+    </span>
+</a>

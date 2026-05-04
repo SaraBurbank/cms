@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Contact } from '../contacts.model';
 
 @Component({
@@ -8,5 +8,5 @@ import { Contact } from '../contacts.model';
   styleUrl: './contact-detail.css',
 })
 export class ContactDetail {
-  contact: Contact[] = [];
+  contact = input.required<Contact>();
 }

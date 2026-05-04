@@ -2,23 +2,20 @@
 
   <div class="card-header d-flex align-items-center gap-3">
     <img
-      [src]=""
-      [alt]=""
-      class="rounded-circle"
-      width="50"
-      height="50"
+      [src]="contact().imageUrl"
+      [alt]="contact().name"
     />
-    <h5 class="mb-0 flex-grow-1">Name</h5>
+    <h5 class="mb-0 flex-grow-1">{{ contact().name }}</h5>
     <a href="#" class="btn btn-sm btn-outline-primary">Edit</a>
     <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
   </div>
 
   <div class="card-body">
     <p class="card-text">
-      <strong>Email:</strong> 
+      <strong>Email:</strong> {{ contact().email }}
     </p>
     <p class="card-text">
-      <strong>Phone:</strong> 
+      <strong>Phone:</strong> {{ contact().phone }}
     </p>
   </div>
 

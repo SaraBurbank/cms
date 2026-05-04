@@ -1,8 +1,14 @@
 <div class="row">
     <div class="col-md-5">
-        <cms-contact-list />
+        <cms-contact-list (selectedContactEvent)="selectedContact = $event"/>
     </div>
     <div class="col-md-4">
-        <cms-contact-detail />
+        @if (selectedContact) {
+            <cms-contact-detail [contact]="selectedContact"/>
+        } @else {
+            <ng-template>
+                <p class="text-muted">Please select a contact to see details.</p>
+            </ng-template>
+        }
     </div>
 </div>
