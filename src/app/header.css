@@ -1,0 +1,6 @@
+@media (min-width: 992px) {
+  .navbar .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
