@@ -1,16 +1,12 @@
 <div class="card mt-2">
-    <div class="card-heading">
-        <div class="row pad-left-right">
-            <span class="pull-left title">Add Documents</span>
-            <a class="btn btn-success pull-right">Add Document</a>
-        </div>
-    </div>
+  <div class="card-header justify-content-between d-flex align-items-center">
+    <span class="pull-left title">Documents</span>
+    <a class="btn btn-success pull-right">Add Document</a>
+  </div>
     <div class="card-body">
-        <div class="center-card">
-            <!-- @for (item of documents; track item.id) { -->
-            <cms-document-item />
-            <!-- } -->
-        </div>
-    </div>
-
+      <div class="card-list list-group d-flex flex-wrap gap-2">
+          @for (document of documents; track document.id) {
+              <cms-document-item [document]="document" (documentSelected)="OnSelected($event)"></cms-document-item> }
+      </div>
+  </div>
 </div>
