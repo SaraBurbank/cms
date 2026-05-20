@@ -1,5 +1,6 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Contact } from '../contacts.model';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'cms-contact-item',
@@ -9,9 +10,9 @@ import { Contact } from '../contacts.model';
 })
 export class ContactItem {
   contact = input.required<Contact>();
-  contactSelected = output<Contact>();
+  constructor(private contactService: ContactService) {}
 
   onSelected() {
-    this.contactSelected.emit(this.contact());
+    this.contactService.contactSelectedEvent.emit(this.contact());
   }
 }

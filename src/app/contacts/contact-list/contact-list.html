@@ -6,7 +6,7 @@
     <div class="card-body">
         <div class="card-list list-group">
             @for (contact of contacts; track contact.id) {
-                <cms-contact-item [contact]="contact" (contactSelected)="OnSelected($event)"></cms-contact-item> }
+                <cms-contact-item [contact]="contact" />}
         </div>
     </div>
 </div>

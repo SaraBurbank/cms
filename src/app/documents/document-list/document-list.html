@@ -6,7 +6,7 @@
     <div class="card-body">
       <div class="card-list list-group d-flex flex-wrap gap-2">
           @for (document of documents; track document.id) {
-              <cms-document-item [document]="document" (documentSelected)="OnSelected($event)"></cms-document-item> }
+              <cms-document-item [document]="document" />}
       </div>
   </div>
 </div>
