@@ -30,7 +30,6 @@ export class DocumentDetail {
     this.nativeWindow = this.windowService.getNativeWindow()
   }
   onView() {
-    console.log("here");
     if (this.document)
     if (this.document.url) {
       this.nativeWindow.open(this.document.url);

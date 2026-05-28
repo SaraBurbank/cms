@@ -1,12 +1,15 @@
 <div class="card mt-2">
     <div class="card-header justify-content-between d-flex align-items-center">
         <h2 class="card-title">Contacts</h2>
-        <button class="btn btn-success">New Contact</button>
+        <button class="btn btn-success" routerLink="./new">New Contact</button>
     </div>
     <div class="card-body">
         <div class="card-list list-group">
             @for (contact of contacts; track contact.id) {
-                <cms-contact-item [contact]="contact" />}
+                <a routerLinkActive="active" [routerLink]="[contact.id]">
+                    <cms-contact-item [contact]="contact" [id]="contact.id" />
+                </a>
+            }
         </div>
     </div>
 </div>
