@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { DocumentItem } from '../document-item/document-item';
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'cms-document-list',
-  imports: [DocumentItem],
+  imports: [DocumentItem, RouterLink ],
   templateUrl: './document-list.html',
   styleUrl: './document-list.css',
 })

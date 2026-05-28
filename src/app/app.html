@@ -1,16 +1,9 @@
 <main class="main">
   <div class="content">
-    <cms-header (selectedFeatureEvent)="switchView($event)" />
+    <cms-header />
     <div class="container pull-left">
-      @if (selectedFeature === 'documents') {
-        <cms-documents />
-      } @else if (selectedFeature === 'messages') {
-        <cms-message-list />
-      } @else if (selectedFeature === 'contacts') {
-        <cms-contacts />
-      }
+      <router-outlet />
     </div>
   </div>
 </main>
 
-<router-outlet />

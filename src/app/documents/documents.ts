@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { DocumentList } from './document-list/document-list';
-import { DocumentDetail } from './document-detail/document-detail';
 import { Document } from './document.model';
 import { DocumentService } from './document.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cms-documents',
-  imports: [DocumentList, DocumentDetail],
+  imports: [DocumentList, RouterOutlet],
   templateUrl: './documents.html',
   styleUrl: './documents.css',
   providers: [DocumentService]

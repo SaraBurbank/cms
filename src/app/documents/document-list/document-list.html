@@ -1,12 +1,17 @@
 <div class="card mt-2">
   <div class="card-header justify-content-between d-flex align-items-center">
     <span class="pull-left title">Documents</span>
-    <a class="btn btn-success pull-right">Add Document</a>
+    <a class="btn btn-success pull-right" routerLink="./new">Add Document</a>
   </div>
     <div class="card-body">
-      <div class="card-list list-group d-flex flex-wrap gap-2">
-          @for (document of documents; track document.id) {
-              <cms-document-item [document]="document" />}
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-2 align-items-stretch">
+        @for (document of documents; track document.id) {
+          <div class="col d-flex">
+            <a routerLinkActive="active" [routerLink]="[document.id]" class="document-card d-flex flex-column text-dark text-decoration-none h-100">
+              <cms-document-item [document]="document" [id]="document.id" />
+            </a>
+          </div>
+        }
       </div>
   </div>
 </div>

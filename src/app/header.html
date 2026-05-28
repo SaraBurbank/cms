@@ -6,9 +6,9 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" (click)="onSelect('documents')" href="#">Documents</a>
-                <a class="nav-item nav-link" (click)="onSelect('messages')" href="#">Messages</a>
-                <a class="nav-item nav-link" (click)="onSelect('contacts')" href="#">Contacts</a>
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="/documents">Documents</a>
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="/messages">Messages</a>
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="/contacts">Contacts</a>
             </div>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">User <span class="caret"></span></a>
