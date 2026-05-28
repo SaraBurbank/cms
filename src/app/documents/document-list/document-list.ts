@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DocumentItem } from '../document-item/document-item';
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'cms-document-list',
@@ -11,11 +11,16 @@ import { RouterLink, RouterOutlet } from "@angular/router";
   styleUrl: './document-list.css',
 })
 
-export class DocumentList {
+export class DocumentList implements OnInit {
   documents: Document[] = [];
   constructor(private documentService: DocumentService) {}
   
-  ngOnInit() {
+  ngOnInit(): void {
+    this.documentService.documentChangedEvent
+      .subscribe((documents: Document[]) => {
+        this.documents = documents;
+      });
+
     this.documents = this.documentService.getDocuments();
   }
 }

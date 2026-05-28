@@ -2,9 +2,9 @@
   <div class="card-header">
     <h4 class="title margin-left-right">{{document.name}}</h4>
     <div class="float-end margin-left-right">
-      <a class="btn btn-primary ms-2">View</a>
+      <a class="btn btn-primary ms-2" (click)="onView()" >View</a>
       <a class="btn btn-info ms-2" routerLink="./edit" >Edit</a>
-      <a class="btn btn-danger ms-2">Delete</a>
+      <a class="btn btn-danger ms-2" (click)="onDelete()">Delete</a>
     </div>
   </div>
   <div class="card-body">
