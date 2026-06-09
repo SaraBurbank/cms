@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Document } from '../document.model';
-import { ActivatedRoute, Params, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { DocumentService } from '../document.service';
 import { WindRefService } from '../../wind-ref';
 
@@ -18,6 +18,7 @@ export class DocumentDetail {
   constructor(
     private documentService: DocumentService,
     private route: ActivatedRoute,
+    private router: Router,
     private windowService: WindRefService) {}
 
   ngOnInit(){
@@ -38,5 +39,6 @@ export class DocumentDetail {
   onDelete() {
     if(this.document)
     this.documentService.deleteDocument(this.document);
+    this.router.navigate(['/documents']);
   }
 }

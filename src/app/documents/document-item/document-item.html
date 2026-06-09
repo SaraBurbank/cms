@@ -1,5 +1,5 @@
 <div class="document-item-content">
-  <a routerLinkActive="active" [routerLink]="[id]" class="text-dark text-decoration-none">
+  <a routerLinkActive="active" [routerLink]="['/documents', document()?.id]" class="text-dark text-decoration-none">
     <h4 class="list-group-item-heading">{{ document()?.name }}</h4>
   </a>
 </div>
