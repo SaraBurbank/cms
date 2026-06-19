@@ -6,15 +6,16 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 @Component({
   selector: 'cms-document-item',
   imports: [RouterLink, RouterLinkActive],
+  standalone: true,
   templateUrl: './document-item.html',
   styleUrl: './document-item.css',
 })
 export class DocumentItem {
   document = input.required<Document>();
-  id = input.required<Document>();
-  constructor(private documentService: DocumentService) {}
+  // id = input.required<Document>();
+  // constructor(private documentService: DocumentService) {}
 
-  ngOnInit(){
-    this.documentService.getDocuments
-  }
+  // ngOnInit(){
+  //   this.documentService.getDocuments();
+  // }
 }

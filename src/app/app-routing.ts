@@ -8,7 +8,7 @@ import { ContactEdit } from './contacts/contact-edit/contact-edit';
 import { ContactDetail } from './contacts/contact-detail/contact-detail';
 
 export const appRoutes: Routes = [
-    {path: '', component: Documents},
+    { path: '', redirectTo: 'documents', pathMatch: 'full' },
     {path: 'documents', component: Documents, children: [
         {path: 'new', component: DocumentEdit},
         {path: ':id', component: DocumentDetail},

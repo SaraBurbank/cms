@@ -1,18 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DocumentItem } from '../document-item/document-item';
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive} from "@angular/router";
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cms-document-list',
-  imports: [DocumentItem, RouterLink ],
+  imports: [DocumentItem, RouterLink, RouterLinkActive],
   templateUrl: './document-list.html',
   styleUrl: './document-list.css',
 })
 
-export class DocumentList implements OnInit, OnDestroy {
+export class DocumentList {
   documents: Document[] = [];
   private subscription!: Subscription; 
 

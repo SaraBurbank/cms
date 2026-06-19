@@ -8,7 +8,7 @@
         @for (document of documents; track document.id) {
           <div class="col d-flex">
             <a routerLinkActive="active" [routerLink]="[document.id]" class="document-card d-flex flex-column text-dark text-decoration-none h-100">
-              <cms-document-item [document]="document" [id]="document.id" />
+              <cms-document-item [document]="document" />
             </a>
           </div>
         }

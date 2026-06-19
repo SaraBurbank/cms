@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ContactList } from './contact-list/contact-list';
-import { ContactService } from './contact.service';
 import { RouterOutlet } from "@angular/router";
 
 @Component({
@@ -8,9 +7,5 @@ import { RouterOutlet } from "@angular/router";
   imports: [ContactList, RouterOutlet],
   templateUrl: './contacts.html',
   styleUrl: './contacts.css',
-  providers: [ContactService]
 })
-export class Contacts {
-  constructor() {}
-  ngOnInit() {}
-}
+export class Contacts {}
