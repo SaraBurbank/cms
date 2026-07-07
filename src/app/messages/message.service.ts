@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class MessageService {
   messageChangedEvent = new BehaviorSubject<Message[]>([]); 
   private messages: Message[] = [];
-  private messagesUrl = 'https://cms-sburbank-default-rtdb.firebaseio.com/messages';
+  private messagesUrl = 'http://localhost:3000/messages';
   maxMessageId = this._getMaxId();
   
   constructor(private http: HttpClient) {
@@ -18,10 +18,10 @@ export class MessageService {
 
   getMessages(): Message[] {
     if (this.messages.length === 0) {
-      this.http.get<Message[]>(`${this.messagesUrl}.json`)
+    this.http.get<{ message: string; messages: Message[] }>(`${this.messagesUrl}`)
       .subscribe({
-        next: (messages: Message[]) => {
-          this.messages = messages ?? [];
+        next: (response) => {
+          this.messages = response.messages ?? [];
           this.maxMessageId = this._getMaxId();
           this.messages.sort((a, b) => {
             if (a.sender < b.sender) return -1;
@@ -50,8 +50,14 @@ export class MessageService {
       );
   }
   addMessage(message: Message) {
-    this.messages.push(message);
-    this.storeMessages();
+    if (!message) return;
+    message.id = "";
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.post<{ message: Message }>(this.messagesUrl, message, { headers })
+      .subscribe((responseData) => {
+        this.messages.push(responseData.message);
+        this.storeMessages();
+      });
   }
   _getMaxId(): number {
     let maxId:number = 0;

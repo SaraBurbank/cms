@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class DocumentService {
   documentChangedEvent = new BehaviorSubject<Document[]>([]);
   private documents: Document[] = [];
-  private documentsUrl = 'https://cms-sburbank-default-rtdb.firebaseio.com/documents';
+  private documentsUrl = 'http://localhost:3000/documents';
   maxDocumentId: number = 0;
 
   constructor(private http: HttpClient) {
@@ -17,10 +17,10 @@ export class DocumentService {
   }
   getDocuments(): Document[] {
     if (this.documents.length === 0) {
-      this.http.get<Document[]>(`${this.documentsUrl}.json`)
+      this.http.get<{ message: string; documents: Document[] }>(`${this.documentsUrl}`)
       .subscribe({
-        next: (documents: Document[]) => {
-          this.documents = documents ?? [];
+        next: (response) => {
+          this.documents = response.documents ?? [];
           this.maxDocumentId = this._getMaxId();
           this.documents.sort((a, b) => {
             if (a.name < b.name) return -1;
@@ -50,25 +50,36 @@ export class DocumentService {
   }
   addDocument(newDocument: Document):void {
     if (!newDocument) return;
-    this.maxDocumentId++
-    newDocument.id = this.maxDocumentId.toString();
-    this.documents.push(newDocument);
-    this.storeDocuments();
+    newDocument.id = "";
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.post<{ message: string, document: Document }>(this.documentsUrl, newDocument, { headers })
+      .subscribe((responseData) => {
+        this.documents.push(responseData.document);
+        this.storeDocuments();
+      });
   }
   updateDocument(originalDocument: Document, newDocument: Document) {
     if (!originalDocument || !newDocument) return;
     const pos = this.documents.indexOf(originalDocument);
     if ( pos < 0 ) return;
     newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    this.storeDocuments();
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.put(`${this.documentsUrl}/${originalDocument.id}`, newDocument, { headers })
+      .subscribe((response: any) => {
+        this.documents[pos] = newDocument;
+        this.storeDocuments();
+      });
   }
   deleteDocument(document: Document) {
     if (!document) return;
     const pos = this.documents.indexOf(document);
     if (pos < 0) return;
-    this.documents.splice(pos, 1);
-    this.storeDocuments();
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.delete(`${this.documentsUrl}/${document.id}`, { headers })
+      .subscribe((response: any) => {
+        this.documents.splice(pos, 1);
+        this.storeDocuments();
+      });
   }
   _getMaxId(): number {
     let maxId:number = 0;

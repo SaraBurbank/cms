@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ContactService {
   contactChangedEvent = new BehaviorSubject<Contact[]>([]);
   private contacts: Contact[] = [];
-  private contactsUrl = 'https://cms-sburbank-default-rtdb.firebaseio.com/contacts';
+  private contactsUrl = 'http://localhost:3000/contacts';
   maxContactId: number = 0;
   
   constructor(private http: HttpClient) {
@@ -17,10 +17,10 @@ export class ContactService {
   }
   getContacts(): Contact[] {
     if (this.contacts.length === 0) {
-      this.http.get<Contact[]>(`${this.contactsUrl}.json`)
+  this.http.get<{ message: string; contacts: Contact[] }>(`${this.contactsUrl}`)
       .subscribe({
-        next: (contacts: Contact[]) => {
-          this.contacts = contacts ?? [];
+        next: (response) => {
+          this.contacts = response.contacts ?? [];
           this.maxContactId = this._getMaxId();
           this.contacts.sort((a, b) => {
             if (a.name < b.name) return -1;
@@ -50,25 +50,36 @@ export class ContactService {
   }
   addContact(newContact: Contact):void {
     if (!newContact) return;
-    this.maxContactId++
-    newContact.id = this.maxContactId.toString();
-    this.contacts.push(newContact);
-    this.storeContacts();
+    newContact.id = "";
+    const headers = { 'Content-Type': 'application/json' };
+        this.http.post<{ message: string, contact: Contact }>(this.contactsUrl, newContact, { headers })
+          .subscribe((responseData) => {
+            this.contacts.push(responseData.contact);
+            this.storeContacts();
+          });
   }
   updateContact(originalContact: Contact, newContact: Contact) {
     if (!originalContact || !newContact) return;
     const pos = this.contacts.indexOf(originalContact);
     if ( pos < 0 ) return;
     newContact.id = originalContact.id;
-    this.contacts[pos] = newContact;
-    this.storeContacts();
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.put(`${this.contactsUrl}/${originalContact.id}`, newContact, { headers })
+      .subscribe((response: any) => {
+        this.contacts[pos] = newContact;
+        this.storeContacts();
+      });
   }
   deleteContact(contact: Contact) {
     if (!contact) return;
     const pos = this.contacts.indexOf(contact);
     if (pos < 0) return;
-    this.contacts.splice(pos, 1);
-    this.storeContacts();
+    const headers = { 'Content-Type': 'application/json' };
+    this.http.delete(`${this.contactsUrl}/${contact.id}`, { headers })
+      .subscribe((response: any) => {
+        this.contacts.splice(pos, 1);
+        this.storeContacts();
+      });
   }
   _getMaxId(): number {
     let maxId:number = 0;
